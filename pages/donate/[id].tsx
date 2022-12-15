@@ -43,7 +43,7 @@ export default function DetailDonation(props: Props) {
           />
         </div>
       </div>
-      <div className="w-full md:w-6/12 lg:w-4/12 py-3 px-5 -mx-6 bg-white fixed bottom-0 flex justify-center shadow-[0px_-2px_4px_0px_#efeeee]">
+      <div className="w-full md:w-10/12 lg:w-4/12 py-3 px-5 -mx-6 bg-white fixed bottom-0 flex justify-center shadow-[0px_-2px_4px_0px_#efeeee]">
         <ButtonComponent widthType="full">Send Donation</ButtonComponent>
       </div>
     </>

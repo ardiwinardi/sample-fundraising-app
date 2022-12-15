@@ -78,7 +78,7 @@ export default function DetailCampaign(props: Props) {
       </div>
       <div
         className={classNames(
-          'w-full md:w-6/12 lg:w-4/12 py-3 px-5 -mx-6 bg-white fixed flex justify-center shadow-[0px_-2px_4px_0px_#efeeee] z-30',
+          'w-full md:w-10/12 lg:w-4/12 py-3 px-5 -mx-6 bg-white fixed flex justify-center shadow-[0px_-2px_4px_0px_#efeeee] z-30',
           'transition-all duration-200',
           {
             'bottom-0': scrollPosition > 200,

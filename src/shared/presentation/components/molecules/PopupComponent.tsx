@@ -51,7 +51,7 @@ export default function PopupComponent(props: Props) {
     <>
       <div
         id={modalId}
-        className="fixed w-full md:w-6/12 lg:w-4/12 -mx-6 px-4 pb-5 pt-0 rounded-t-2xl z-30 bg-white transition-all duration-100"
+        className="fixed w-full md:w-10/12 lg:w-4/12 -mx-6 px-4 pb-5 pt-0 rounded-t-2xl z-30 bg-white transition-all duration-100"
       >
         {closeOnTapOutside ? (
           <div className="w-12 h-1 my-4 bg-primary/50 rounded-full mx-auto"></div>
