@@ -12,10 +12,6 @@ class MyDocument extends Document {
             crossOrigin="yes"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&display=swap"
-            rel="stylesheet"
-          />
-          <link
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap"
             rel="stylesheet"
           />

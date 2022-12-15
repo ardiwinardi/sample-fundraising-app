@@ -5,13 +5,12 @@ module.exports = {
     extend: {
       colors: {
         primary: '#2f2c61',
-        secondary: 'rgba(243, 244, 244)',
+        secondary: '#ecedf1',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
         display: ['Montserrat', 'sans-serif'],
         body: ['Montserrat', 'sans-serif'],
-        logo: ['League Spartan', 'sans-serif'],
       },
     },
   },

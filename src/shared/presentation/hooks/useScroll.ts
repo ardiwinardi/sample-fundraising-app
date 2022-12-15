@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
+type ScrollDirection = 'up' | 'down';
 export const useScroll = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('up');
-
+  const [scrollDirection, setScrollDirection] = useState<ScrollDirection>('up');
   const lastScrollTop = useRef(0);
+
   useEffect(() => {
     const updatePosition = () => {
       const scrollTop =
