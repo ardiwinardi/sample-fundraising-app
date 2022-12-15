@@ -5,55 +5,25 @@ import CampaignCardComponent from '@/features/home/presentation/components/molec
 import ButtonComponent from '@/shared/presentation/components/atomics/ButtonComponent';
 import RangeComponent from '@/shared/presentation/components/atomics/RangeComponent';
 import TitleComponent from '@/shared/presentation/components/atomics/TitleComponent';
+import NavbarComponent from '@/shared/presentation/components/molecules/NavbarComponent';
 import { GetServerSideProps } from 'next';
-import Link from 'next/link';
+import { useEffect } from 'react';
 
 type Props = {
   data: Campaign;
 };
 export default function DetailDonation(props: Props) {
   const campaign = props.data;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   return (
     <>
       <div className="h-screen bg-white pb-20">
-        <div className="flex justify-between">
-          <Link
-            href={`/campaign/${campaign.id}`}
-            className="active:bg-gray-100"
-          >
-            <svg
-              className="w-7 h-7 text-primary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
-          </Link>
+        <NavbarComponent backUrl={`/campaign/${campaign.id}`} />
 
-          <button>
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              />
-            </svg>
-          </button>
-        </div>
         <div className="flex flex-col space-y-6 h-full w-full bg-white mt-10">
           <CampaignCardComponent campaign={campaign} />
 

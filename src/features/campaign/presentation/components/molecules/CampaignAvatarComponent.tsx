@@ -13,7 +13,7 @@ export default function CampaignAvatarComponent(props: Props) {
           title="Target"
           icon={
             <svg
-              className="w-6 h-6 text-primary"
+              className="w-9 h-9 text-primary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -38,7 +38,7 @@ export default function CampaignAvatarComponent(props: Props) {
           title="Collected"
           icon={
             <svg
-              className="w-6 h-6 text-primary"
+              className="w-9 h-9 text-primary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -63,7 +63,7 @@ export default function CampaignAvatarComponent(props: Props) {
           title="Donor"
           icon={
             <svg
-              className="w-6 h-6 text-primary"
+              className="w-9 h-9 text-primary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
