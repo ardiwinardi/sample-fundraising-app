@@ -1,18 +1,16 @@
+import { bannerSlides } from '@/features/home/data/constants/slide.constant';
 import CategoryComponent from '@/features/home/presentation/components/organisms/CategoryComponent';
-import SlideComponent from '@/features/home/presentation/components/organisms/SlideComponent';
-import StickySearchComponent from '@/features/home/presentation/components/organisms/StickySearchComponent';
+import HomeHeaderComponent from '@/features/home/presentation/components/organisms/HomeHeaderComponent';
 import TrendingComponent from '@/features/home/presentation/components/organisms/TrendingComponent';
+import SlideComponent from '@/shared/presentation/components/molecules/SlideComponent';
 
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col space-y-6">
-        <div>
-          <h2 className="text-xl font-semibold text-primary">Hello,</h2>
-          <h2 className="text-4xl font-bold text-primary">Ahmad</h2>
-        </div>
-        <StickySearchComponent />
-        <SlideComponent />
+      <HomeHeaderComponent />
+
+      <div className="flex flex-col space-y-6 mt-5">
+        <SlideComponent slideList={bannerSlides} />
         <CategoryComponent />
         <div className="pt-2">
           <TrendingComponent />

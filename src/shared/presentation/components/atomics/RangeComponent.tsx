@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { numberToCurrency } from '../../utils/number';
+import { numberToCurrency } from '../../utils/number.util';
 
 type Props = {
   minRange: number;

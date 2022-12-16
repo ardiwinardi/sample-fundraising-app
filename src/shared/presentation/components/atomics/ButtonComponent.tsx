@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { ReactNode } from 'react';
 
-type Props = {
+export type ButtonProps = {
   children: ReactNode;
   isLoading?: boolean;
   isDisabled?: boolean;
@@ -10,16 +10,16 @@ type Props = {
   buttonType?: 'button' | 'submit';
   onClick?: () => void;
 };
-export default function ButtonComponent(props: Props) {
-  const widthType = props.widthType ?? 'max';
-  const heightType = props.heightType ?? 'md';
+export default function ButtonComponent(props: ButtonProps) {
+  const widthType = props.widthType ?? 'min';
+  const heightType = props.heightType ?? 'sm';
 
   return (
     <button
       type={props.buttonType ?? 'button'}
       disabled={props.isLoading || props.isDisabled}
       className={classNames(
-        'px-10 py-4 text-base rounded-full border border-primary bg-primary text-white font-bold',
+        'px-10 text-base rounded-full border border-primary bg-primary active:bg-primary/90 text-white font-bold',
         {
           'w-full': widthType === 'full',
           'w-max': widthType === 'max',

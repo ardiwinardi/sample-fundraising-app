@@ -1,20 +1,8 @@
-import PopupComponent, {
-  GeneralPopupProps,
-} from '@/shared/presentation/components/molecules/PopupComponent';
+import { sortingOptions } from '@/features/home/data/constants/sorting.constant';
+import { BasePopupProps } from '@/shared/interfaces/popup.interface';
+import PopupComponent from '@/shared/presentation/components/molecules/PopupComponent';
 
-const sortingOptions: { name: string }[] = [
-  {
-    name: 'Best Match',
-  },
-  {
-    name: 'Most Recent',
-  },
-  {
-    name: 'Populer',
-  },
-];
-
-type Props = GeneralPopupProps;
+type Props = BasePopupProps;
 
 export default function SortingPopupComponent(props: Props) {
   return (

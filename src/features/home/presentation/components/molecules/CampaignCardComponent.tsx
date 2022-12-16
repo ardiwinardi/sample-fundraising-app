@@ -1,6 +1,6 @@
 import { Campaign } from '@/features/home/domain/entities/campaign.entity';
-import { numberToCurrency } from '@/shared/presentation/utils/number';
-import CardComponent from '../../../../../shared/presentation/components/atomics/CardComponent';
+import CardComponent from '@/shared/presentation/components/atomics/CardComponent';
+import { numberToCurrency } from '@/shared/presentation/utils/number.util';
 
 type Props = {
   campaign: Campaign;

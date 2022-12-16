@@ -1,24 +1,14 @@
+import { Slide } from '@/shared/domain/entities/slide.entity';
 import useScreenSize from '@/shared/presentation/hooks/useScreenSize';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 
-const slides: { url: string }[] = [
-  {
-    url: 'https://via.placeholder.com/800x400.png?text=Banner 1',
-  },
-  {
-    url: 'https://via.placeholder.com/800x400.png?text=Banner 2',
-  },
-  {
-    url: 'https://via.placeholder.com/800x400.png?text=Banner 3',
-  },
-];
-
 type Props = {
   withNavigation?: boolean;
+  slideList: Slide[];
 };
-export default function SlideComponent(props?: Props) {
+export default function SlideComponent(props: Props) {
   const { isLargeScreen } = useScreenSize();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -57,7 +47,7 @@ export default function SlideComponent(props?: Props) {
         id="slide-container"
         className="flex space-x-6 pl-6 snap-x snap-mandatory overflow-auto scrollbar-hide -mx-6"
       >
-        {slides.map((slide, index) => (
+        {props.slideList.map((slide, index) => (
           <Image
             id={`slide-${index}`}
             src={slide.url}
@@ -73,7 +63,7 @@ export default function SlideComponent(props?: Props) {
 
       {props?.withNavigation && (
         <div className="flex justify-center lg:space-x-2 space-x-1.5 mt-5">
-          {slides.map((slide, index) => {
+          {props.slideList.map((slide, index) => {
             const isActive = index === currentIndex;
             return (
               <button

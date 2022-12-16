@@ -1,21 +1,20 @@
+import { BasePopupProps } from '@/shared/interfaces/popup.interface';
 import classNames from 'classnames';
 import { ReactNode, useEffect } from 'react';
 import usePopupBehaviour from '../../hooks/usePopupBehaviour';
+import BackdropComponent from '../atomics/BackdropComponent';
 
-export type GeneralPopupProps = {
-  show: boolean;
-  handleClose: () => void;
-  closeOnTapOutside?: boolean;
-};
-type Props = GeneralPopupProps & {
+export type PopupProps = BasePopupProps & {
   id: string;
   children: ReactNode;
+  popupType?: 'popup' | 'dialog';
 };
 
-export default function PopupComponent(props: Props) {
+export default function PopupComponent(props: PopupProps) {
   const closeOnTapOutside = props.closeOnTapOutside ?? true;
   const backdropId = `backdrop${props.id}`;
   const modalId = `modal${props.id}`;
+  const popupType = props.popupType ?? 'popup';
 
   usePopupBehaviour({
     backdropId,
@@ -24,12 +23,9 @@ export default function PopupComponent(props: Props) {
     closeOnTapOutside: closeOnTapOutside,
   });
 
+  /* set sliding up popup */
   useEffect(() => {
     const modal = document.querySelector(`#${modalId}`) as HTMLElement;
-    const backdrop = document.querySelector(`#${backdropId}`) as HTMLElement;
-    if (props.show) {
-      backdrop.style.display = 'block';
-    }
     setTimeout(() => {
       modal.classList.remove('bottom-0');
       modal.classList.remove('-bottom-full');
@@ -39,52 +35,53 @@ export default function PopupComponent(props: Props) {
         modal.classList.add('-bottom-full');
       }
     }, 200);
-
-    setTimeout(() => {
-      if (!props.show) {
-        backdrop.style.display = 'none';
-      }
-    }, 400);
   }, [props.show]);
 
   return (
     <>
       <div
         id={modalId}
-        className="fixed w-full md:w-10/12 lg:w-4/12 -mx-6 px-4 pb-5 pt-0 rounded-t-2xl z-30 bg-white transition-all duration-100"
-      >
-        {closeOnTapOutside ? (
-          <div className="w-12 h-1 my-4 bg-primary/50 rounded-full mx-auto"></div>
-        ) : (
-          <div className="flex justify-end w-full pt-4 pb-0">
-            <button onClick={() => props.handleClose()}>
-              <svg
-                className="w-5 h-5 text-primary"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-        )}
-
-        <div className="mt-5">{props.children}</div>
-      </div>
-      <div
-        id={backdropId}
         className={classNames(
-          'h-full w-full bg-gray-800/20 fixed inset-0 z-20'
+          'fixed container -bottom-full -mx-6 pt-0 z-50 transition-all duration-100',
+          {
+            'p-8': popupType === 'dialog',
+          }
         )}
-        style={{ display: 'none' }}
-      ></div>
+      >
+        <div
+          className={classNames('bg-white p-4', {
+            'px-5 rounded-t-2xl': popupType === 'popup',
+            'rounded-2xl': popupType === 'dialog',
+          })}
+        >
+          {closeOnTapOutside ? (
+            <div className="w-12 h-1 my-4 bg-primary/50 rounded-full mx-auto"></div>
+          ) : (
+            <div className="flex justify-end w-full pt-0 pb-0">
+              <button
+                onClick={() => props.handleClose()}
+                className="active:bg-primary/30 rounded-full p-1 -mr-2"
+              >
+                <svg
+                  className="w-6 h-6 text-primary font-bold"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          )}
+
+          <div className="mt-5">{props.children}</div>
+        </div>
+      </div>
+      <BackdropComponent id={backdropId} />
     </>
   );
 }

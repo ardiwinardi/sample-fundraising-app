@@ -2,12 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
-    @apply scroll-smooth
+@layer base {
+    html {
+        @apply scroll-smooth
+    }
+    body {
+        @apply font-sans bg-white
+    }          
+    button, a {
+        @apply active:outline-none
+    }
 }
 
-body{
-    @apply font-sans bg-secondary
+@layer utilities {
+    .container {
+        @apply w-full md:w-10/12 lg:w-4/12
+    }
+}
+
+#__next{
+    @apply bg-secondary h-full;
 }
 
 /* width */
