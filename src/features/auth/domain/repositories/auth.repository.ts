@@ -9,6 +9,7 @@ import { Auth } from '../entities/auth.entity';
 
 export interface AuthRepository {
   login(request: LoginRequest): Promise<Auth>;
+  loginWithGoogle(): Promise<User>;
   refreshToken(refreshToken: string): Promise<Auth>;
   resetPassword(request: ResetPasswordRequest): Promise<void>;
   forgotPassword(request: ForgotPasswordRequest): Promise<void>;

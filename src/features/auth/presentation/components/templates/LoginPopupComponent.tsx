@@ -4,15 +4,23 @@ import FacebookButtonComponent from '@/shared/presentation/components/atomics/Fa
 import GoogleButtonComponent from '@/shared/presentation/components/atomics/GoogleButtonComponent';
 import PopupComponent from '@/shared/presentation/components/molecules/PopupComponent';
 import { useRouter } from 'next/router';
+import { useAuthLoginWithGoogle } from '../../controllers/auth.controller';
 
 type Props = BasePopupProps;
 
 export default function LoginPopupComponent(props: Props) {
+  const loginController = useAuthLoginWithGoogle();
   const router = useRouter();
   const handleLogin = () => {
     props.handleClose();
     router.push('/donate/1');
   };
+
+  const handleLoginWithGoogle = async () => {
+    await loginController.login();
+    props.handleClose();
+  };
+
   return (
     <PopupComponent
       id="login"
@@ -54,17 +62,16 @@ export default function LoginPopupComponent(props: Props) {
           </label>
         </div>
 
-        <ButtonComponent
-          widthType="full"
-          heightType="sm"
-          onClick={() => handleLogin()}
-        >
+        <ButtonComponent widthType="full" heightType="sm" onClick={handleLogin}>
           Login
         </ButtonComponent>
         <div className="flex flex-row justify-between space-x-4 items-center mt-6">
           <FacebookButtonComponent widthType="full" />
 
-          <GoogleButtonComponent widthType="full" />
+          <GoogleButtonComponent
+            widthType="full"
+            onClick={handleLoginWithGoogle}
+          />
         </div>
       </form>
     </PopupComponent>

@@ -1,4 +1,5 @@
 import LoginPopupComponent from '@/features/auth/presentation/components/templates/LoginPopupComponent';
+import { AuthContext } from '@/features/auth/presentation/contexts/AuthContext';
 import CampaignDetailComponent from '@/features/campaign/presentation/components/organisms/CampaignDetailComponent';
 import CampaignHeaderComponent from '@/features/campaign/presentation/components/organisms/CampaignHeaderComponent';
 import { campaigns } from '@/features/home/data/constants/campaign.constant';
@@ -7,21 +8,25 @@ import BottomFixedComponent from '@/features/home/presentation/components/molecu
 import ButtonComponent from '@/shared/presentation/components/atomics/ButtonComponent';
 import NavbarComponent from '@/shared/presentation/components/molecules/NavbarComponent';
 import { GetServerSideProps } from 'next';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useContext, useEffect, useState } from 'react';
 
 type Props = {
   data: Campaign;
 };
 export default function DetailCampaign(props: Props) {
+  const { user } = useContext(AuthContext);
   const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false);
   const campaign = props.data;
+  const router = useRouter();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   const handleDonate = () => {
-    setShowLoginPopup(true);
+    if (!user) setShowLoginPopup(true);
+    else router.push(`/donate/${props.data.id}`);
   };
 
   return (

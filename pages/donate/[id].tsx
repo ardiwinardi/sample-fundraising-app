@@ -4,6 +4,7 @@ import { campaigns } from '@/features/home/data/constants/campaign.constant';
 import { Campaign } from '@/features/home/domain/entities/campaign.entity';
 import BottomFixedComponent from '@/features/home/presentation/components/molecules/BottomFixedComponent';
 import CampaignCardComponent from '@/features/home/presentation/components/molecules/CampaignCardComponent';
+import { CustomPage } from '@/shared/interfaces/page.interface';
 import ButtonComponent from '@/shared/presentation/components/atomics/ButtonComponent';
 import NavbarComponent from '@/shared/presentation/components/molecules/NavbarComponent';
 import SuccessPopupComponent from '@/shared/presentation/components/molecules/SuccessPopupComponent';
@@ -14,7 +15,8 @@ import { useEffect, useState } from 'react';
 type Props = {
   data: Campaign;
 };
-export default function DetailDonation(props: Props) {
+
+const DetailDonation = (props: Props) => {
   const [showSuccessModal, setShowMessageModal] = useState<boolean>(false);
   const campaign = props.data;
   const router = useRouter();
@@ -55,7 +57,10 @@ export default function DetailDonation(props: Props) {
       />
     </>
   );
-}
+};
+
+(DetailDonation as CustomPage).usePrivateLayout = true;
+export default DetailDonation;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;

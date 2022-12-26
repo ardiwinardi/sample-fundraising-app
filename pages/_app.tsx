@@ -1,7 +1,8 @@
+import AuthContextProvider from '@/features/auth/presentation/contexts/AuthContext';
 import type { AppProps } from 'next/app';
 import { CustomPage } from '../src/shared/interfaces/page.interface';
-import LayoutAuthComponent from '../src/shared/presentation/components/templates/LayoutAuthComponent';
 import LayoutComponent from '../src/shared/presentation/components/templates/LayoutComponent';
+import PrivateLayoutComponent from '../src/shared/presentation/components/templates/PrivateLayoutComponent';
 import '../styles/globals.css';
 
 type CustomAppProps = AppProps & {
@@ -9,13 +10,15 @@ type CustomAppProps = AppProps & {
 };
 
 export default function App({ Component, pageProps }: CustomAppProps) {
-  const Layout = Component.useAuthLayout
-    ? LayoutAuthComponent
+  const Layout = Component.usePrivateLayout
+    ? PrivateLayoutComponent
     : LayoutComponent;
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <AuthContextProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthContextProvider>
   );
 }
