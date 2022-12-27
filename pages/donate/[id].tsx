@@ -1,13 +1,13 @@
-import ChooseAmountComponent from '@/features/donation/presentation/components/organisms/ChooseAmountComponent';
-import PaymentMethodComponent from '@/features/donation/presentation/components/organisms/PaymentMethodComponent';
-import { campaigns } from '@/features/home/data/constants/campaign.constant';
-import { Campaign } from '@/features/home/domain/entities/campaign.entity';
-import BottomFixedComponent from '@/features/home/presentation/components/molecules/BottomFixedComponent';
-import CampaignCardComponent from '@/features/home/presentation/components/molecules/CampaignCardComponent';
+import { campaignService } from '@/features/campaign/data/repositories/campaign.repository.impl';
+import { Campaign } from '@/features/campaign/domain/entities/campaign.entity';
+import ChooseAmount from '@/features/donation/presentation/components/organisms/ChooseAmount';
+import PaymentMethod from '@/features/donation/presentation/components/organisms/PaymentMethod';
+import BottomFixed from '@/features/home/presentation/components/molecules/BottomFixed';
+import CampaignCard from '@/features/home/presentation/components/molecules/CampaignCard';
 import { CustomPage } from '@/shared/interfaces/page.interface';
-import ButtonComponent from '@/shared/presentation/components/atomics/ButtonComponent';
-import NavbarComponent from '@/shared/presentation/components/molecules/NavbarComponent';
-import SuccessPopupComponent from '@/shared/presentation/components/molecules/SuccessPopupComponent';
+import Button from '@/shared/presentation/components/atoms/Button';
+import SuccessPopup from '@/shared/presentation/components/atoms/SuccessPopup';
+import Navbar from '@/shared/presentation/components/organisms/Navbar';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -28,26 +28,26 @@ const DetailDonation = (props: Props) => {
   return (
     <>
       <div className="h-screen">
-        <NavbarComponent backUrl={`/campaign/${campaign.id}`} />
+        <Navbar backUrl={`/campaign/${campaign.id}`} />
 
         <div className="flex flex-col space-y-6 mt-10">
-          <CampaignCardComponent campaign={campaign} />
-          <PaymentMethodComponent />
-          <ChooseAmountComponent />
+          <CampaignCard campaign={campaign} />
+          <PaymentMethod />
+          <ChooseAmount />
         </div>
       </div>
 
-      <BottomFixedComponent>
-        <ButtonComponent
+      <BottomFixed>
+        <Button
           heightType="sm"
           widthType="full"
           onClick={() => setShowMessageModal(true)}
         >
           Send Donation
-        </ButtonComponent>
-      </BottomFixedComponent>
+        </Button>
+      </BottomFixed>
 
-      <SuccessPopupComponent
+      <SuccessPopup
         show={showSuccessModal}
         handleClose={() => {
           setShowMessageModal(false);
@@ -64,11 +64,27 @@ export default DetailDonation;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
-  const campaign = campaigns.find((campaign) => campaign.id == id);
 
-  return {
-    props: {
-      data: campaign,
-    },
-  };
+  try {
+    const data = await campaignService.getById(id as string);
+
+    return {
+      props: {
+        data: {
+          id: data.id,
+          title: data.title ?? '',
+          story: '',
+          description: data.description ?? '',
+          category: data.category ?? '',
+        },
+      },
+    };
+  } catch (e) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
 };

@@ -1,8 +1,8 @@
-import AccountResumeComponent from '@/features/account/presentation/components/organisms/AccountResumeComponent';
-import TransactionListComponent from '@/features/account/presentation/components/organisms/TransactionListComponent';
+import AccountResume from '@/features/account/presentation/components/organisms/AccountResume';
+import TransactionList from '@/features/account/presentation/components/organisms/TransactionList';
 import { AuthContext } from '@/features/auth/presentation/contexts/AuthContext';
 import { CustomPage } from '@/shared/interfaces/page.interface';
-import NavbarComponent from '@/shared/presentation/components/molecules/NavbarComponent';
+import Navbar from '@/shared/presentation/components/organisms/Navbar';
 
 import Image from 'next/image';
 import { useContext } from 'react';
@@ -13,7 +13,7 @@ const Account: CustomPage = () => {
   return (
     <>
       <div className="flex flex-col space-y-7 h-full bg-white">
-        <NavbarComponent backUrl="/" />
+        <Navbar backUrl="/" />
 
         <div className="flex flex-col space-y-5 items-center">
           <Image
@@ -28,8 +28,8 @@ const Account: CustomPage = () => {
           </h2>
         </div>
 
-        <AccountResumeComponent />
-        <TransactionListComponent />
+        <AccountResume />
+        <TransactionList />
       </div>
     </>
   );

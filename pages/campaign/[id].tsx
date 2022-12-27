@@ -1,12 +1,12 @@
-import LoginPopupComponent from '@/features/auth/presentation/components/templates/LoginPopupComponent';
+import LoginPopup from '@/features/auth/presentation/components/templates/LoginPopup';
 import { AuthContext } from '@/features/auth/presentation/contexts/AuthContext';
-import CampaignDetailComponent from '@/features/campaign/presentation/components/organisms/CampaignDetailComponent';
-import CampaignHeaderComponent from '@/features/campaign/presentation/components/organisms/CampaignHeaderComponent';
-import { campaigns } from '@/features/home/data/constants/campaign.constant';
-import { Campaign } from '@/features/home/domain/entities/campaign.entity';
-import BottomFixedComponent from '@/features/home/presentation/components/molecules/BottomFixedComponent';
-import ButtonComponent from '@/shared/presentation/components/atomics/ButtonComponent';
-import NavbarComponent from '@/shared/presentation/components/molecules/NavbarComponent';
+import { campaignService } from '@/features/campaign/data/repositories/campaign.repository.impl';
+import { Campaign } from '@/features/campaign/domain/entities/campaign.entity';
+import CampaignDetail from '@/features/campaign/presentation/components/organisms/CampaignDetail';
+import CampaignHeader from '@/features/campaign/presentation/components/organisms/CampaignHeader';
+import BottomFixed from '@/features/home/presentation/components/molecules/BottomFixed';
+import Button from '@/shared/presentation/components/atoms/Button';
+import Navbar from '@/shared/presentation/components/organisms/Navbar';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
@@ -32,25 +32,21 @@ export default function DetailCampaign(props: Props) {
   return (
     <>
       <div className="flex flex-col space-y-5 h-full bg-white pb-20">
-        <NavbarComponent backUrl="/" />
-        <CampaignHeaderComponent
+        <Navbar backUrl="/" />
+        <CampaignHeader
           campaign={campaign}
-          handleDonate={handleDonate}
+          handleDonate={() => handleDonate()}
         />
-        <CampaignDetailComponent campaign={campaign} />
+        <CampaignDetail campaign={campaign} />
       </div>
 
-      <BottomFixedComponent showOnScrollPosition={200}>
-        <ButtonComponent
-          heightType="sm"
-          widthType="full"
-          onClick={() => handleDonate()}
-        >
+      <BottomFixed showOnScrollPosition={200}>
+        <Button heightType="sm" widthType="full" onClick={() => handleDonate()}>
           Donate Now
-        </ButtonComponent>
-      </BottomFixedComponent>
+        </Button>
+      </BottomFixed>
 
-      <LoginPopupComponent
+      <LoginPopup
         show={showLoginPopup}
         handleClose={() => setShowLoginPopup(false)}
       />
@@ -60,11 +56,27 @@ export default function DetailCampaign(props: Props) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
-  const campaign = campaigns.find((campaign) => campaign.id == id);
 
-  return {
-    props: {
-      data: campaign,
-    },
-  };
+  try {
+    const data = await campaignService.getById(id as string);
+
+    return {
+      props: {
+        data: {
+          id: data.id,
+          title: data.title ?? '',
+          story: '',
+          description: data.description ?? '',
+          category: data.category ?? '',
+        },
+      },
+    };
+  } catch (e) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
 };

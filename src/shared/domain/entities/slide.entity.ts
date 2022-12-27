@@ -1,1 +1,1 @@
-export type Slide = { url: string };
+export type SlideProps = { url: string };

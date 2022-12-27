@@ -1,4 +1,4 @@
-import { Campaign } from '../../domain/entities/campaign.entity';
+import { Campaign } from '../../../campaign/domain/entities/campaign.entity';
 
 export const campaigns: Campaign[] = [
   {

@@ -1,19 +1,19 @@
 import { bannerSlides } from '@/features/home/data/constants/slide.constant';
-import CategoryComponent from '@/features/home/presentation/components/organisms/CategoryComponent';
-import HomeHeaderComponent from '@/features/home/presentation/components/organisms/HomeHeaderComponent';
-import TrendingComponent from '@/features/home/presentation/components/organisms/TrendingComponent';
-import SlideComponent from '@/shared/presentation/components/molecules/SlideComponent';
+import Category from '@/features/home/presentation/components/organisms/Category';
+import HomeHeader from '@/features/home/presentation/components/organisms/HomeHeader';
+import Trending from '@/features/home/presentation/components/organisms/Trending';
+import Slide from '@/shared/presentation/components/atoms/Slide';
 
 export default function Home() {
   return (
     <>
-      <HomeHeaderComponent />
+      <HomeHeader />
 
       <div className="flex flex-col space-y-6 mt-5">
-        <SlideComponent slideList={bannerSlides} />
-        <CategoryComponent />
+        <Slide slideList={bannerSlides} />
+        <Category />
         <div className="pt-2">
-          <TrendingComponent />
+          <Trending />
         </div>
       </div>
     </>

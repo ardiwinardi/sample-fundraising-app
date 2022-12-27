@@ -1,6 +1,6 @@
-import { Slide } from '@/shared/domain/entities/slide.entity';
+import { SlideProps } from '@/shared/domain/entities/slide.entity';
 
-export const bannerSlides: Slide[] = [
+export const bannerSlides: SlideProps[] = [
   {
     url: 'https://via.placeholder.com/800x400.png?text=Banner 1',
   },
@@ -12,7 +12,7 @@ export const bannerSlides: Slide[] = [
   },
 ];
 
-export const campaignSlides: Slide[] = [
+export const campaignSlides: SlideProps[] = [
   {
     url: 'https://via.placeholder.com/800x400.png?text=Campaign 1',
   },

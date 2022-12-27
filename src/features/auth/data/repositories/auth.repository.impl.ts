@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { User } from '@/features/user/domain/entities/user.entity';
 import { Auth } from '../../domain/entities/auth.entity';
 import { firebaseAuthApi } from '../network/firebase-auth.api';
@@ -8,6 +10,7 @@ import {
   ResetPasswordRequest,
 } from '../requests/auth.request';
 import { AuthRepository } from './../../domain/repositories/auth.repository';
+
 class AuthRepositoryImpl implements AuthRepository {
   login(request: LoginRequest): Promise<Auth> {
     throw new Error('Method not implemented.');
