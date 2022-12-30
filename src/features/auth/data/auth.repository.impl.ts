@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { User } from '@/features/user/domain/entities/user.entity';
-import { Auth } from '../../domain/entities/auth.entity';
-import { firebaseAuthApi } from '../network/firebase-auth.api';
+import { User } from '@/features/user/domain/user.entity';
+import { Auth } from '../domain/auth.entity';
+import { AuthRepository } from '../domain/auth.repository';
+import { firebaseAuthApi } from './auth-firebase.api';
 import {
   ForgotPasswordRequest,
   LoginRequest,
   ResendPasswordRequest,
   ResetPasswordRequest,
-} from '../requests/auth.request';
-import { AuthRepository } from './../../domain/repositories/auth.repository';
+} from './auth.request';
 
 class AuthRepositoryImpl implements AuthRepository {
   login(request: LoginRequest): Promise<Auth> {

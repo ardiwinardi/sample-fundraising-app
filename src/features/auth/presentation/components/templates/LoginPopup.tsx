@@ -1,31 +1,32 @@
-import { BasePopupProps } from '@/shared/interfaces/popup.interface';
 import Button from '@/shared/presentation/components/atoms/Button';
 import FacebookButton from '@/shared/presentation/components/atoms/FacebookButton';
 import GoogleButton from '@/shared/presentation/components/atoms/GoogleButton';
 import Popup from '@/shared/presentation/components/atoms/Popup';
+import useModal from '@/shared/presentation/hooks/useModal';
 import { useRouter } from 'next/router';
 import { useAuthLoginWithGoogle } from '../../controllers/auth.controller';
 
-type Props = BasePopupProps;
+export default function LoginPopup() {
+  const { modalStatus, toggleModal: handleClose } = useModal('LOGIN_POPUP');
 
-export default function LoginPopup(props: Props) {
   const loginController = useAuthLoginWithGoogle();
   const router = useRouter();
+
   const handleLogin = () => {
-    props.handleClose();
+    handleClose();
     router.push('/donate/1');
   };
 
   const handleLoginWithGoogle = async () => {
     await loginController.login();
-    props.handleClose();
+    handleClose();
   };
 
   return (
     <Popup
       id="login"
-      show={props.show}
-      handleClose={() => props.handleClose()}
+      show={modalStatus}
+      handleClose={() => handleClose()}
       closeOnTapOutside={false}
     >
       <form>

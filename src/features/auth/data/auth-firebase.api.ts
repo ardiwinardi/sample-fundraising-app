@@ -1,4 +1,4 @@
-import { User } from '@/features/user/domain/entities/user.entity';
+import { User } from '@/features/user/domain/user.entity';
 import { auth } from '@/shared/data/network/firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 

@@ -1,4 +1,4 @@
-import { authService } from '../../data/repositories/auth.repository.impl';
+import { authService } from '../../data/auth.repository.impl';
 export const useAuthLoginWithGoogle = () => {
   const login = async () => {
     try {

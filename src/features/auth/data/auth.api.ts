@@ -1,8 +1,8 @@
-import { storageKeys } from '../../../../shared/data/constants/storage.constant';
-import { api } from '../../../../shared/data/network/axios';
-import { Auth } from '../../domain/entities/auth.entity';
-import { LoginRequest } from '../requests/auth.request';
-import { AuthDTO } from '../responses/auth.response';
+import { storageKeys } from '../../../shared/data/constants/storage.constant';
+import { api } from '../../../shared/data/network/axios';
+import { Auth } from '../domain/auth.entity';
+import { LoginRequest } from './auth.request';
+import { AuthDTO } from './auth.response';
 
 const endpoint = 'auth';
 

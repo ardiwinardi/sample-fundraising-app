@@ -1,18 +1,14 @@
-import { useCampaignGetAll } from '@/features/campaign/presentation/components/controllers/campaign.controller';
+import { useGetCampaignListQuery } from '@/features/campaign/presentation/controllers/campaign.controller';
+import { Loading } from '@/shared/presentation/components/atoms/Loading';
 import Title from '@/shared/presentation/components/atoms/Title';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CampaignCard from '../molecules/CampaignCard';
 import SortingPopup from '../molecules/SortingPopup';
 
 export default function Trending() {
   const [showSortingPopup, setShowSortingPopup] = useState<boolean>(false);
-
-  const getAllController = useCampaignGetAll();
-
-  useEffect(() => {
-    getAllController.get();
-  }, []);
+  const getListController = useGetCampaignListQuery();
 
   return (
     <>
@@ -48,15 +44,17 @@ export default function Trending() {
           </button>
         </Title>
         <div className="flex flex-col space-y-5">
-          {getAllController.list.map((campaign, index) => (
-            <Link
-              href={`/campaign/${campaign.id}`}
-              key={index}
-              className="cursor-pointer active:bg-gray-200/70"
-            >
-              <CampaignCard campaign={campaign} />
-            </Link>
-          ))}
+          {getListController.isLoading && <Loading />}
+          {getListController.data &&
+            getListController.data.map((campaign, index) => (
+              <Link
+                href={`/campaign/${campaign.id}`}
+                key={index}
+                className="cursor-pointer active:bg-gray-200/70"
+              >
+                <CampaignCard campaign={campaign} />
+              </Link>
+            ))}
         </div>
       </div>
 

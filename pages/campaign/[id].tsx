@@ -1,31 +1,28 @@
-import LoginPopup from '@/features/auth/presentation/components/templates/LoginPopup';
 import { AuthContext } from '@/features/auth/presentation/contexts/AuthContext';
-import { campaignService } from '@/features/campaign/data/repositories/campaign.repository.impl';
-import { Campaign } from '@/features/campaign/domain/entities/campaign.entity';
+import { campaignService } from '@/features/campaign/data/campaign.repository.impl';
+import { Campaign } from '@/features/campaign/domain/campaign.entity';
 import CampaignDetail from '@/features/campaign/presentation/components/organisms/CampaignDetail';
 import CampaignHeader from '@/features/campaign/presentation/components/organisms/CampaignHeader';
 import BottomFixed from '@/features/home/presentation/components/molecules/BottomFixed';
 import Button from '@/shared/presentation/components/atoms/Button';
 import Navbar from '@/shared/presentation/components/organisms/Navbar';
+import useModal from '@/shared/presentation/hooks/useModal';
+import { toLocalDateString } from '@/shared/presentation/utils/date.util';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 type Props = {
   data: Campaign;
 };
 export default function DetailCampaign(props: Props) {
   const { user } = useContext(AuthContext);
-  const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false);
+  const { toggleModal } = useModal('LOGIN_POPUP');
   const campaign = props.data;
   const router = useRouter();
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
   const handleDonate = () => {
-    if (!user) setShowLoginPopup(true);
+    if (!user) toggleModal();
     else router.push(`/donate/${props.data.id}`);
   };
 
@@ -45,11 +42,6 @@ export default function DetailCampaign(props: Props) {
           Donate Now
         </Button>
       </BottomFixed>
-
-      <LoginPopup
-        show={showLoginPopup}
-        handleClose={() => setShowLoginPopup(false)}
-      />
     </>
   );
 }
@@ -58,16 +50,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
 
   try {
-    const data = await campaignService.getById(id as string);
+    const campaign = await campaignService.getById(id as string);
 
     return {
       props: {
         data: {
-          id: data.id,
-          title: data.title ?? '',
+          id: campaign.id,
+          title: campaign.title ?? '',
           story: '',
-          description: data.description ?? '',
-          category: data.category ?? '',
+          description: campaign.description ?? '',
+          category: campaign.category ?? '',
+          detail: {
+            targetAmount: campaign.detail?.targetAmount ?? 0,
+            expiredAt: toLocalDateString(campaign.detail?.expiredAt ?? null),
+            collectedAmount: campaign.detail?.collectedAmount ?? 0,
+          },
         },
       },
     };

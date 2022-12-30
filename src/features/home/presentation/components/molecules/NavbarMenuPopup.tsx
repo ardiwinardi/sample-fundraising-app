@@ -1,6 +1,7 @@
 import { AuthContext } from '@/features/auth/presentation/contexts/AuthContext';
 import { BasePopupProps } from '@/shared/interfaces/popup.interface';
 import PopupMenu from '@/shared/presentation/components/atoms/PopupMenu';
+import useModal from '@/shared/presentation/hooks/useModal';
 import Link from 'next/link';
 import { ReactNode, useContext, useMemo } from 'react';
 
@@ -14,6 +15,8 @@ type Props = BasePopupProps;
 
 export default function NavbarMenuPopup(props: Props) {
   const { signOut, user } = useContext(AuthContext);
+
+  const { toggleModal } = useModal('LOGIN_POPUP');
 
   const handleSignOut = () => {
     signOut();
@@ -98,7 +101,10 @@ export default function NavbarMenuPopup(props: Props) {
             />
           </svg>
         ),
-        path: '/login',
+        action: () => {
+          props.handleClose();
+          toggleModal();
+        },
       },
     ],
     []
@@ -155,7 +161,9 @@ export default function NavbarMenuPopup(props: Props) {
                 {menu.action && (
                   <div
                     className="flex flex-row items-center p-1 active:text-primary/50 cursor-pointer"
-                    onClick={() => menu.action}
+                    onClick={() => {
+                      (menu.action as () => void)();
+                    }}
                   >
                     {menu.icon}
                     <span>{menu.title}</span>

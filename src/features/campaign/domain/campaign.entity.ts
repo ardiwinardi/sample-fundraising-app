@@ -7,8 +7,9 @@ export interface Campaign {
   detail?: {
     targetAmount?: number;
     collectedAmount?: number;
-    expiredAt?: number;
+    expiredAt?: Date | null;
     expiredType?: 'unlimited' | 'limited';
     numberOfDonors?: number;
   };
+  donations?: any[];
 }

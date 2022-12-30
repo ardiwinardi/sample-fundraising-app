@@ -1,11 +1,11 @@
-import { User } from '../../../user/domain/entities/user.entity';
+import { User } from '../../user/domain/user.entity';
 import {
   ForgotPasswordRequest,
   LoginRequest,
   ResendPasswordRequest,
   ResetPasswordRequest,
-} from '../../data/requests/auth.request';
-import { Auth } from '../entities/auth.entity';
+} from '../data/auth.request';
+import { Auth } from './auth.entity';
 
 export interface AuthRepository {
   login(request: LoginRequest): Promise<Auth>;

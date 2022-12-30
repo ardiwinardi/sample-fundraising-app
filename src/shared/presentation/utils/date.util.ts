@@ -9,12 +9,6 @@ export const toDateInputValue = (date: Date | null): string => {
   }
 };
 
-export const getMaxDate = (): string => {
-  return toDateInputValue(
-    new Date(new Date().setFullYear(new Date().getFullYear() + 10))
-  );
-};
-
 export const toLocalDateString = (date: Date | null): string => {
   if (!date) return '';
 
@@ -61,23 +55,6 @@ export const toLocalTimeString = (date: Date | null): string => {
     });
   } catch (e) {
     return '';
-  }
-};
-
-export const is17YearsPlus = (date: string | null): boolean => {
-  if (!date) return false;
-
-  try {
-    const birthdate = new Date(date);
-    const today = new Date();
-    let age = today.getFullYear() - birthdate.getFullYear();
-    const m = today.getMonth() - birthdate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
-      age--;
-    }
-    return age >= 17;
-  } catch (e) {
-    return false;
   }
 };
 
