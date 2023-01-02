@@ -3,7 +3,6 @@ import FacebookButton from '@/shared/presentation/components/atoms/FacebookButto
 import GoogleButton from '@/shared/presentation/components/atoms/GoogleButton';
 import Popup from '@/shared/presentation/components/atoms/Popup';
 import useModal from '@/shared/presentation/hooks/useModal';
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useLoginWithGoogleMutation } from '../../controllers/auth.controller';
 
@@ -11,11 +10,10 @@ export default function LoginPopup() {
   const { modalStatus, toggleModal: handleClose } = useModal('LOGIN_POPUP');
 
   const [loginWithGoogle, result] = useLoginWithGoogleMutation();
-  const router = useRouter();
 
+  // TODO: Handle login with email
   const handleLogin = () => {
     handleClose();
-    router.push('/donate/1');
   };
 
   const handleLoginWithGoogle = async () => {
@@ -69,7 +67,7 @@ export default function LoginPopup() {
           </label>
         </div>
 
-        <Button widthType="full" heightType="sm" onClick={handleLogin}>
+        <Button widthType="full" heightType="sm" onClick={() => handleLogin()}>
           Login
         </Button>
         <div className="flex flex-row justify-between space-x-4 items-center mt-6">

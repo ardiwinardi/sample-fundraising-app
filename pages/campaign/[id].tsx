@@ -1,9 +1,9 @@
 import { AuthContext } from '@/features/auth/presentation/contexts/AuthContext';
 import { useGetCampaignByIdQuery } from '@/features/campaign/presentation/controllers/campaign.controller';
-import { CustomPage } from '@/shared/interfaces/page.interface';
 import Button from '@/shared/presentation/components/atoms/Button';
 import Navbar from '@/shared/presentation/components/organisms/Navbar';
 import useModal from '@/shared/presentation/hooks/useModal';
+import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
@@ -35,7 +35,7 @@ const BottomFixed = dynamic(
   }
 );
 
-const DetailCampaign = () => {
+const DetailCampaign: NextPage = () => {
   const { user } = useContext(AuthContext);
   const { toggleModal } = useModal('LOGIN_POPUP');
   const router = useRouter();
@@ -78,5 +78,4 @@ const DetailCampaign = () => {
   );
 };
 
-(DetailCampaign as CustomPage).usePrivateLayout = true;
 export default DetailCampaign;
