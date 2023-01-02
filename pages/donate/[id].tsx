@@ -1,21 +1,57 @@
+import { DonateRequest } from '@/features/account/data/donation.request';
+import { useAddDonationMutation } from '@/features/account/presentation/controller/donation.controller';
 import { AuthContext } from '@/features/auth/presentation/contexts/AuthContext';
-import { DonateRequest } from '@/features/campaign/data/campaign.request';
-import {
-  useAddDonationMutation,
-  useGetCampaignByIdQuery,
-} from '@/features/campaign/presentation/controllers/campaign.controller';
-import ChooseAmount from '@/features/donation/presentation/components/organisms/ChooseAmount';
-import PaymentMethod from '@/features/donation/presentation/components/organisms/PaymentMethod';
-import BottomFixed from '@/features/home/presentation/components/molecules/BottomFixed';
-import CampaignCard from '@/features/home/presentation/components/molecules/CampaignCard';
+import { useGetCampaignByIdQuery } from '@/features/campaign/presentation/controllers/campaign.controller';
 import { CustomPage } from '@/shared/interfaces/page.interface';
 import Button from '@/shared/presentation/components/atoms/Button';
-import SuccessPopup from '@/shared/presentation/components/atoms/SuccessPopup';
 import Navbar from '@/shared/presentation/components/organisms/Navbar';
 import useModal from '@/shared/presentation/hooks/useModal';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+
+const CampaignCard = dynamic(
+  () =>
+    import('@/features/home/presentation/components/molecules/CampaignCard'),
+  {
+    ssr: false,
+  }
+);
+
+const PaymentMethod = dynamic(
+  () =>
+    import(
+      '@/features/donation/presentation/components/organisms/PaymentMethod'
+    ),
+  {
+    ssr: false,
+  }
+);
+
+const ChooseAmount = dynamic(
+  () =>
+    import(
+      '@/features/donation/presentation/components/organisms/ChooseAmount'
+    ),
+  {
+    ssr: false,
+  }
+);
+
+const BottomFixed = dynamic(
+  () => import('@/features/home/presentation/components/molecules/BottomFixed'),
+  {
+    ssr: false,
+  }
+);
+
+const SuccessPopup = dynamic(
+  () => import('@/shared/presentation/components/atoms/SuccessPopup'),
+  {
+    ssr: false,
+  }
+);
 
 const DetailDonation = () => {
   const [amount, setAmount] = useState<number>(500000);
@@ -48,19 +84,23 @@ const DetailDonation = () => {
     }
   }, [result.isSuccess, result.isError]);
 
+  useEffect(() => {
+    getCampaignController.refetch();
+  }, []);
+
   return (
     <>
       <div className="h-screen">
         <Navbar backUrl={`/campaign/${campaign?.id}`} />
 
-        <div className="flex flex-col space-y-6 mt-10">
+        <section className="flex flex-col space-y-6 mt-10">
           {campaign && <CampaignCard campaign={campaign} />}
           <PaymentMethod />
           <ChooseAmount
             defaultValue={amount}
             handleChange={(value) => setAmount(value)}
           />
-        </div>
+        </section>
       </div>
 
       <BottomFixed>

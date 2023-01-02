@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function HomeNavbar() {
   return (
-    <div className="flex flex-row justify-between items-start">
+    <nav className="flex flex-row justify-between items-start">
       <div>
         <div className="flex items-center space-x-2">
           <Image
@@ -18,8 +18,7 @@ export default function HomeNavbar() {
           </h3>
         </div>{' '}
       </div>
-
       <NavbarMenu />
-    </div>
+    </nav>
   );
 }

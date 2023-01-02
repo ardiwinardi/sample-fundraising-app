@@ -10,7 +10,7 @@ type Props = {
 export default function CampaignDetail(props: Props) {
   const { campaign } = props;
   return (
-    <div className="flex flex-col space-y-5">
+    <article className="flex flex-col space-y-5">
       <div className="flex flex-col space-y-2">
         <Title>Story</Title>
         <p className="text-xs mt-3 leading-5">{campaign.story}</p>
@@ -29,6 +29,6 @@ export default function CampaignDetail(props: Props) {
         <Title>Description</Title>
         <p className="text-xs leading-5">{campaign.description}</p>
       </div>
-    </div>
+    </article>
   );
 }

@@ -1,7 +1,4 @@
-import {
-  CampaignFilterRequest,
-  DonateRequest,
-} from '@/features/campaign/data/campaign.request';
+import { CampaignFilterRequest } from '@/features/campaign/data/campaign.request';
 import { collectionNames } from '@/shared/data/constants/collection.constant';
 import { db } from '@/shared/data/network/firebase';
 import {
@@ -12,7 +9,6 @@ import {
   orderBy,
   query,
   QueryConstraint,
-  runTransaction,
   where,
 } from 'firebase/firestore';
 import { Campaign } from '../domain/campaign.entity';
@@ -95,38 +91,5 @@ export const campaignApi = {
     } else {
       throw 'not found';
     }
-  },
-
-  async donate(request: DonateRequest): Promise<void> {
-    const campaignRef = doc(db, collectionNames.CAMPAIGNS, request.campaignId);
-    const donationCollectionRef = collection(campaignRef, 'donations');
-
-    const donationRef = doc(donationCollectionRef);
-
-    await runTransaction(db, async (transaction) => {
-      return transaction.get(campaignRef).then((res) => {
-        if (!res.exists()) {
-          throw 'Document does not exist!';
-        }
-
-        const campaign = res.data() as CampaignDTO;
-
-        // Commit to Firestore
-        transaction.update(campaignRef, {
-          resume: {
-            numDonors: campaign.resume ? campaign.resume.numDonors + 1 : 1,
-            collectedAmount: campaign.resume
-              ? campaign.resume.collectedAmount + request.amount
-              : request.amount,
-          },
-        });
-
-        transaction.set(donationRef, {
-          userId: request.userId,
-          amount: request.amount,
-          createdAt: new Date(),
-        });
-      });
-    });
   },
 };

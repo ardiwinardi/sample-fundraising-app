@@ -7,7 +7,7 @@ type Props = {
 };
 export default function ChooseAmount(props: Props) {
   return (
-    <div className="flex flex-col space-y-5">
+    <section className="flex flex-col space-y-5">
       <Title>Choose the Amount</Title>
       <RangeInput
         minRange={50000}
@@ -17,6 +17,6 @@ export default function ChooseAmount(props: Props) {
         defaultValue={props.defaultValue}
         handleChange={(value) => props.handleChange(value)}
       />
-    </div>
+    </section>
   );
 }

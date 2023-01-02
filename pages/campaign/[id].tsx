@@ -1,39 +1,72 @@
 import { AuthContext } from '@/features/auth/presentation/contexts/AuthContext';
-import { campaignService } from '@/features/campaign/data/campaign.repository.impl';
-import { Campaign } from '@/features/campaign/domain/campaign.entity';
-import CampaignDetail from '@/features/campaign/presentation/components/organisms/CampaignDetail';
-import CampaignHeader from '@/features/campaign/presentation/components/organisms/CampaignHeader';
-import BottomFixed from '@/features/home/presentation/components/molecules/BottomFixed';
+import { useGetCampaignByIdQuery } from '@/features/campaign/presentation/controllers/campaign.controller';
+import { CustomPage } from '@/shared/interfaces/page.interface';
 import Button from '@/shared/presentation/components/atoms/Button';
 import Navbar from '@/shared/presentation/components/organisms/Navbar';
 import useModal from '@/shared/presentation/hooks/useModal';
-import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
-type Props = {
-  data: Campaign;
-};
-export default function DetailCampaign(props: Props) {
+const CampaignHeader = dynamic(
+  () =>
+    import(
+      '@/features/campaign/presentation/components/organisms/CampaignHeader'
+    ),
+  {
+    ssr: false,
+  }
+);
+
+const CampaignDetail = dynamic(
+  () =>
+    import(
+      '@/features/campaign/presentation/components/organisms/CampaignDetail'
+    ),
+  {
+    ssr: false,
+  }
+);
+
+const BottomFixed = dynamic(
+  () => import('@/features/home/presentation/components/molecules/BottomFixed'),
+  {
+    ssr: false,
+  }
+);
+
+const DetailCampaign = () => {
   const { user } = useContext(AuthContext);
   const { toggleModal } = useModal('LOGIN_POPUP');
-  const campaign = props.data;
   const router = useRouter();
+
+  const getCampaignController = useGetCampaignByIdQuery(
+    router.query.id as string
+  );
+  const campaign = getCampaignController.data;
 
   const handleDonate = () => {
     if (!user) toggleModal();
-    else router.push(`/donate/${props.data.id}`);
+    else router.push(`/donate/${campaign?.id}`);
   };
+
+  useEffect(() => {
+    getCampaignController.refetch();
+  }, []);
 
   return (
     <>
       <div className="flex flex-col space-y-5 h-full bg-white pb-20">
         <Navbar backUrl="/" />
-        <CampaignHeader
-          campaign={campaign}
-          handleDonate={() => handleDonate()}
-        />
-        <CampaignDetail campaign={campaign} />
+        {campaign && (
+          <>
+            <CampaignHeader
+              campaign={campaign}
+              handleDonate={() => handleDonate()}
+            />
+            <CampaignDetail campaign={campaign} />
+          </>
+        )}
       </div>
 
       <BottomFixed showOnScrollPosition={200}>
@@ -43,39 +76,7 @@ export default function DetailCampaign(props: Props) {
       </BottomFixed>
     </>
   );
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query;
-
-  try {
-    const campaign = await campaignService.getById(id as string);
-
-    console.log(campaign);
-
-    return {
-      props: {
-        data: {
-          id: campaign.id,
-          title: campaign.title ?? '',
-          story: '',
-          description: campaign.description ?? '',
-          category: campaign.category ?? '',
-          detail: {
-            targetAmount: campaign.detail?.targetAmount ?? 0,
-            expiredAt: campaign.detail?.expiredAt,
-            collectedAmount: campaign.detail?.collectedAmount ?? 0,
-            numberOfDonors: campaign.detail?.numberOfDonors ?? 0,
-          },
-        },
-      },
-    };
-  } catch (e) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
 };
+
+(DetailCampaign as CustomPage).usePrivateLayout = true;
+export default DetailCampaign;

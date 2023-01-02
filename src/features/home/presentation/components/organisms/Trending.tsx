@@ -19,9 +19,9 @@ export default function Trending() {
 
   return (
     <>
-      <div className="flex flex-col space-y-4">
-        <Title>
-          Trending Donations
+      <section className="flex flex-col space-y-4">
+        <div className="flex justify-between items-center">
+          <Title>Trending Donations</Title>
           <button onClick={() => setShowSortingPopup(true)}>
             <svg
               className="w-6 h-6 cursor-pointer active:text-gray-600"
@@ -49,21 +49,23 @@ export default function Trending() {
               </g>
             </svg>
           </button>
-        </Title>
-        <div className="flex flex-col space-y-5">
+        </div>
+
+        <ul className="flex flex-col space-y-5">
           {getCampaignsController.isLoading && <Loading />}
           {getCampaignsController.data &&
             getCampaignsController.data.map((campaign, index) => (
-              <Link
-                href={`/campaign/${campaign.id}`}
-                key={index}
-                className="cursor-pointer active:bg-gray-200/70"
-              >
-                <CampaignCard campaign={campaign} />
-              </Link>
+              <li key={index}>
+                <Link
+                  href={`/campaign/${campaign.id}`}
+                  className="cursor-pointer active:bg-gray-200/70"
+                >
+                  <CampaignCard campaign={campaign} />
+                </Link>
+              </li>
             ))}
-        </div>
-      </div>
+        </ul>
+      </section>
 
       <SortingPopup
         show={showSortingPopup}

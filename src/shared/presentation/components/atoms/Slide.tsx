@@ -43,7 +43,7 @@ export default function Slide(props: Props) {
 
   return (
     <>
-      <div
+      <section
         id="slide-container"
         className="flex space-x-6 pl-6 snap-x snap-mandatory overflow-auto scrollbar-hide -mx-6"
       >
@@ -59,7 +59,7 @@ export default function Slide(props: Props) {
           />
         ))}
         <div className="w-10"></div>
-      </div>
+      </section>
 
       {props?.withNavigation && (
         <div className="flex justify-center lg:space-x-2 space-x-1.5 mt-5">

@@ -1,8 +1,13 @@
+import { Donation } from '@/features/account/domain/donation.entity';
 import Card from '@/shared/presentation/components/atoms/Card';
 import { toChatTimeString } from '@/shared/presentation/utils/date.util';
 import { numberToCurrency } from '@/shared/presentation/utils/number.util';
 
-export default function TransactionCard() {
+type Props = {
+  donation: Donation;
+};
+export default function TransactionCard(props: Props) {
+  const { donation } = props;
   return (
     <Card color="light">
       <div className="flex justify-between items-start text-sm">
@@ -24,15 +29,15 @@ export default function TransactionCard() {
           </div>
 
           <div className="pl-1 -mt-[1px]">
-            <h4 className="truncate font-bold">Food to share</h4>
+            <h4 className="truncate font-bold">{donation.campaign?.title}</h4>
             <div className="text-primary/70">
-              {toChatTimeString(new Date())}
+              {toChatTimeString(donation.createdAt)}
             </div>
           </div>
         </div>
         <div className="flex flex-col">
-          <h4>{numberToCurrency(500000 / 1000)}K</h4>
-          <div className="font-bold text-primary">Success</div>
+          <h4>{numberToCurrency(donation.amount / 1000)}K</h4>
+          <div className="font-bold text-primary">{donation.status}</div>
         </div>
       </div>
     </Card>

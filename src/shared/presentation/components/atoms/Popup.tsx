@@ -49,13 +49,13 @@ export default function Popup(props: PopupProps) {
         )}
       >
         <div
-          className={classNames('bg-white p-4', {
+          className={classNames('bg-white p-4 pb-6', {
             'px-5 rounded-t-2xl': popupType === 'popup',
             'rounded-2xl': popupType === 'dialog',
           })}
         >
           {closeOnTapOutside ? (
-            <div className="w-12 h-1 my-4 bg-primary/50 rounded-full mx-auto"></div>
+            <div className="w-12 h-1 mb-4 bg-primary/50 rounded-full mx-auto"></div>
           ) : (
             <div className="flex justify-end w-full pt-0 pb-0">
               <button

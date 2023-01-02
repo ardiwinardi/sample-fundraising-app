@@ -1,8 +1,11 @@
 import { setSearchBy } from '@/features/campaign/presentation/store/campaign.store';
-import { SyntheticEvent } from 'react';
+import { SearchContext } from '@/features/home/presentation/contexts/SearchContext';
+import { SyntheticEvent, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function Search() {
+  const { keyword, setKeyword } = useContext(SearchContext);
+
   const dispatch = useDispatch();
 
   const handleSubmit = (event: SyntheticEvent) => {
@@ -19,6 +22,8 @@ export default function Search() {
         <input
           id="search"
           type="text"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
           placeholder="Search"
           className="w-full p-3 pl-7 text-sm bg-gray-100 rounded-3xl placeholder:text-primary"
         />

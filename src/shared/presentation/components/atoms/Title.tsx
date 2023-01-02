@@ -4,9 +4,5 @@ type Props = {
   children: ReactNode;
 };
 export default function Title(props: Props) {
-  return (
-    <h3 className="text-sm font-bold flex justify-between items-center">
-      {props.children}
-    </h3>
-  );
+  return <h1 className="text-sm font-bold">{props.children}</h1>;
 }

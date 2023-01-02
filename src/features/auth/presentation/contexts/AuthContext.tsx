@@ -13,10 +13,7 @@ type AuthContextProviderProps = {
 
 export const AuthContext = createContext<AuthContextValueProps>({
   user: null,
-  signOut: () =>
-    new Promise((resolveInner) => {
-      setTimeout(resolveInner, 1000);
-    }),
+  signOut: () => new Promise((resolve) => resolve()),
 });
 
 export default function AuthContextProvider(props: AuthContextProviderProps) {

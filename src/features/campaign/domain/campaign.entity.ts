@@ -1,8 +1,5 @@
-export interface Donation {
-  userId: string;
-  amount: number;
-  createdAt: Date;
-}
+import { Donation } from '@/features/account/domain/donation.entity';
+
 export interface Campaign {
   id: string | number;
   title: string;

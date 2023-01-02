@@ -1,10 +1,7 @@
 import { campaignService } from '@/features/campaign/data/campaign.repository.impl';
 import { Campaign } from '@/features/campaign/domain/campaign.entity';
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
-import {
-  CampaignFilterRequest,
-  DonateRequest,
-} from '../../data/campaign.request';
+import { CampaignFilterRequest } from '../../data/campaign.request';
 
 export const campaignController = createApi({
   reducerPath: 'campaignController',
@@ -20,16 +17,8 @@ export const campaignController = createApi({
         data: await campaignService.getById(id),
       }),
     }),
-    addDonation: builder.mutation<void, DonateRequest>({
-      queryFn: async (request) => ({
-        data: await campaignService.donate(request),
-      }),
-    }),
   }),
 });
 
-export const {
-  useGetCampaignListQuery,
-  useGetCampaignByIdQuery,
-  useAddDonationMutation,
-} = campaignController;
+export const { useGetCampaignListQuery, useGetCampaignByIdQuery } =
+  campaignController;

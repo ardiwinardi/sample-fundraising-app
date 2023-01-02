@@ -22,7 +22,7 @@ export default function CampaignHeader(props: Props) {
   );
 
   return (
-    <div className="flex flex-col space-y-3 border-b-2 border-primary/30 pb-5">
+    <section className="flex flex-col space-y-3 border-b-2 border-primary/30 pb-5">
       <div className="flex flex-row justify-between items-center w-full">
         <Avatar size="md">
           <span className="text-3xl font-extrabold text-primary w-full text-center">
@@ -36,6 +36,6 @@ export default function CampaignHeader(props: Props) {
       <h2 className="text-xl font-bold truncate">{campaign.title}</h2>
 
       <CampaignInfo campaign={campaign} />
-    </div>
+    </section>
   );
 }

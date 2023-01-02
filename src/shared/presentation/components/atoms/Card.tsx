@@ -8,7 +8,7 @@ type Props = {
 export default function Card(props: Props) {
   const color = props.color ?? 'secondary';
   return (
-    <div
+    <section
       className={classNames('flex flex-col space-y-3 rounded-xl p-4 shadow', {
         'bg-secondary': color === 'secondary',
         'bg-primary': color === 'primary',
@@ -16,6 +16,6 @@ export default function Card(props: Props) {
       })}
     >
       {props.children}
-    </div>
+    </section>
   );
 }

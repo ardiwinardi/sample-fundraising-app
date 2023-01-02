@@ -6,7 +6,7 @@ type Props = {
 export default function Navbar(props: Props) {
   return (
     <>
-      <div className="flex justify-between items-start bg-primary text-white -mx-6 -mt-5 py-5 px-5">
+      <nav className="flex justify-between items-start bg-primary text-white -mx-6 -mt-5 py-5 px-5">
         <Link
           href={props.backUrl ?? '/'}
           className="active:bg-white/50 rounded-full p-1"
@@ -28,7 +28,7 @@ export default function Navbar(props: Props) {
         </Link>
 
         <NavbarMenu />
-      </div>
+      </nav>
     </>
   );
 }

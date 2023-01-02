@@ -9,11 +9,11 @@ export default function CampaignCard(props: Props) {
   const { campaign } = props;
   return (
     <Card>
-      <div className="flex flex-row justify-between items-start">
-        <div className="w-[80%]">
-          <h5 className="text-sm font-bold">{campaign.title}</h5>
+      <article className="flex flex-row justify-between items-start">
+        <header className="w-[80%]">
+          <h1 className="text-sm font-bold">{campaign.title}</h1>
           <div className="text-xs truncate">{campaign.description}</div>
-        </div>
+        </header>
         <div className="flex items-start">
           <button className="text-primary">
             <svg
@@ -32,14 +32,14 @@ export default function CampaignCard(props: Props) {
             </svg>
           </button>
         </div>
-      </div>
-      <div className="flex justify-between text-xs mt-3">
+      </article>
+      <footer className="flex justify-between text-xs mt-3">
         <div>
           category:{' '}
           <strong className="text-primary">{campaign.category}</strong>
         </div>
         <div>{numberToCurrency(campaign.detail?.targetAmount ?? 0)}</div>
-      </div>
+      </footer>
     </Card>
   );
 }
