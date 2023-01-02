@@ -1,5 +1,12 @@
-import LoginPopup from '@/features/auth/presentation/components/templates/LoginPopup';
+import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
+
+const LoginPopup = dynamic(
+  () => import('@/features/auth/presentation/components/templates/LoginPopup'),
+  {
+    ssr: false,
+  }
+);
 
 type Props = {
   children: React.ReactNode;

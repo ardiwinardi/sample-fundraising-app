@@ -85,8 +85,8 @@ const DetailDonation = () => {
   }, [result.isSuccess, result.isError]);
 
   useEffect(() => {
-    getCampaignController.refetch();
-  }, []);
+    if (router.query.id) getCampaignController.refetch();
+  }, [router.query.id]);
 
   return (
     <>

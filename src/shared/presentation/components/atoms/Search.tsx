@@ -1,11 +1,16 @@
-import { setSearchBy } from '@/features/campaign/presentation/store/campaign.store';
+import {
+  setCategory,
+  setSearchBy,
+  setSortingBy,
+} from '@/features/campaign/presentation/store/campaign.store';
 import { SearchContext } from '@/features/home/presentation/contexts/SearchContext';
-import { SyntheticEvent, useContext } from 'react';
+import { SyntheticEvent, useContext, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function Search() {
   const { keyword, setKeyword } = useContext(SearchContext);
 
+  const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
   const handleSubmit = (event: SyntheticEvent) => {
@@ -14,12 +19,16 @@ export default function Search() {
       search: { value: string };
     };
     dispatch(setSearchBy(target.search.value));
+    dispatch(setCategory(''));
+    dispatch(setSortingBy('MOST_RECENT'));
+    inputRef.current?.blur();
   };
 
   return (
     <div className="relative z-10 w-full">
       <form onSubmit={handleSubmit}>
         <input
+          ref={inputRef}
           id="search"
           type="text"
           value={keyword}
