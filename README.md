@@ -1,5 +1,5 @@
 
-Sample Donation App
+Sample Fundraising Application
 ===========================
 This app demonstrates how I build a front-end app using React.js. 
 
@@ -8,7 +8,7 @@ This app demonstrates how I build a front-end app using React.js.
 	-   Filter and Sorting Campaign
 -   Sign in with google
 -   Account Page
--   Donate Page
+-   Donation Page
 -   Detail Campaign Page 
 -   Mobile Responsive
 
@@ -27,6 +27,15 @@ This app demonstrates how I build a front-end app using React.js.
 - Atomic Design pattern
 - Feature-first folder structure
 
+
+## Development Tools and Resources
+- Visual Studio Code
+- Git
+- Eslint
+- Prettier
+- [Tailwindcss Debug Screens](https://github.com/jorenvanhee/tailwindcss-debug-screens)
+- [SVG Icons](https://heroicons.com)
+- [Tailwind sample components](https://flowbite.com)
 
 ## Setup
 1. Clone or [download zip](https://github.com/ardiwinardi/sample-donation-app/archive/master.zip) this repository
