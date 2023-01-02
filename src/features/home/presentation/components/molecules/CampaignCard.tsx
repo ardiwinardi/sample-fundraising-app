@@ -1,4 +1,4 @@
-import { Campaign } from '@/features/campaign/domain/entities/campaign.entity';
+import { Campaign } from '@/features/campaign/domain/campaign.entity';
 import Card from '@/shared/presentation/components/atoms/Card';
 import { numberToCurrency } from '@/shared/presentation/utils/number.util';
 

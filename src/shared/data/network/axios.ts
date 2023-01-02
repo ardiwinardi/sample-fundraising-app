@@ -1,3 +1,4 @@
+// this file is unsed
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { storageKeys } from '../constants/storage.constant';
 
@@ -25,7 +26,7 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response: AxiosResponse<any>) => {
+  (response) => {
     return { data: response.data } as
       | AxiosResponse<any, any>
       | Promise<AxiosResponse<any, any>>;

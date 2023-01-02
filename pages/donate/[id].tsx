@@ -12,24 +12,28 @@ import { CustomPage } from '@/shared/interfaces/page.interface';
 import Button from '@/shared/presentation/components/atoms/Button';
 import SuccessPopup from '@/shared/presentation/components/atoms/SuccessPopup';
 import Navbar from '@/shared/presentation/components/organisms/Navbar';
+import useModal from '@/shared/presentation/hooks/useModal';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const DetailDonation = () => {
+  const [amount, setAmount] = useState<number>(500000);
   const { user } = useContext(AuthContext);
-  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
+  const { toggleModal } = useModal('SUCCESS_POPUP');
   const router = useRouter();
 
-  const getByIdController = useGetCampaignByIdQuery(router.query.id as string);
+  const getCampaignController = useGetCampaignByIdQuery(
+    router.query.id as string
+  );
   const [addDonation, result] = useAddDonationMutation();
 
-  const campaign = getByIdController.data;
+  const campaign = getCampaignController.data;
 
   const handleDonate = async () => {
     const payload: DonateRequest = {
       userId: user?.uid as string,
-      amount: 2000,
+      amount,
       campaignId: campaign?.id as string,
     };
     addDonation(payload);
@@ -37,7 +41,7 @@ const DetailDonation = () => {
 
   useEffect(() => {
     if (result.isSuccess) {
-      setShowSuccessModal(true);
+      toggleModal();
     }
     if (result.isError) {
       toast.error('Donation is failed');
@@ -52,7 +56,10 @@ const DetailDonation = () => {
         <div className="flex flex-col space-y-6 mt-10">
           {campaign && <CampaignCard campaign={campaign} />}
           <PaymentMethod />
-          <ChooseAmount />
+          <ChooseAmount
+            defaultValue={amount}
+            handleChange={(value) => setAmount(value)}
+          />
         </div>
       </div>
 
@@ -63,11 +70,7 @@ const DetailDonation = () => {
       </BottomFixed>
 
       <SuccessPopup
-        show={showSuccessModal}
-        handleClose={() => {
-          setShowSuccessModal(false);
-          router.push('/');
-        }}
+        redirectPath={`/campaign/${campaign?.id}`}
         message={'Donation Success!'}
       />
     </>

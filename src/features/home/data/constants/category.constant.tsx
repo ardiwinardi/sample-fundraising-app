@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 
-export const categories: { icon: ReactNode; title: string }[] = [
+export type CategoryItem = { icon: ReactNode; title: string };
+
+export const categories: CategoryItem[] = [
   {
     icon: (
       <svg

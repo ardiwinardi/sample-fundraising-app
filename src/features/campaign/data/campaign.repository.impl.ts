@@ -1,7 +1,7 @@
 import { Campaign } from '../domain/campaign.entity';
 import { CampaignRepository } from '../domain/campaign.repository';
 import { campaignApi } from './campaign.api';
-import { DonateRequest } from './campaign.request';
+import { CampaignFilterRequest, DonateRequest } from './campaign.request';
 
 class CampaignRepositoryImpl implements CampaignRepository {
   donate(request: DonateRequest): Promise<void> {
@@ -10,8 +10,8 @@ class CampaignRepositoryImpl implements CampaignRepository {
   getById(id: string): Promise<Campaign> {
     return campaignApi.getById(id);
   }
-  getList(): Promise<Campaign[]> {
-    return campaignApi.getAll();
+  getList(request: CampaignFilterRequest): Promise<Campaign[]> {
+    return campaignApi.getAll(request);
   }
 }
 

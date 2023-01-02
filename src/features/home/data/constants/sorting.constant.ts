@@ -1,14 +1,15 @@
-export const sortingOptions: { name: string }[] = [
+import { CampaignState } from '@/features/campaign/presentation/store/campaign.store';
+
+export const sortingOptions: {
+  name: string;
+  key: CampaignState['filter']['orderBy'];
+}[] = [
   {
-    name: 'Best Match',
-  },
-  {
+    key: 'MOST_RECENT',
     name: 'Most Recent',
   },
   {
+    key: 'POPULAR',
     name: 'Popular',
-  },
-  {
-    name: 'Almost Complete',
   },
 ];

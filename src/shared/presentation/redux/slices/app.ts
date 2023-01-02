@@ -3,11 +3,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface AppState {
   modals: {
     LOGIN_POPUP: boolean;
+    SUCCESS_POPUP: boolean;
   };
 }
 
 export const initialState: AppState = {
-  modals: { LOGIN_POPUP: false },
+  modals: { LOGIN_POPUP: false, SUCCESS_POPUP: false },
 };
 
 export const appSlice = createSlice({
@@ -21,4 +22,4 @@ export const appSlice = createSlice({
 });
 
 export const { toggleModal } = appSlice.actions;
-export default appSlice.reducer;
+export const appReducer = appSlice.reducer;

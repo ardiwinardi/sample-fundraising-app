@@ -8,4 +8,8 @@ export type CampaignDTO = {
     targetAmount?: number;
     expiredAt?: Timestamp;
   };
+  resume?: {
+    numDonors: number;
+    collectedAmount: number;
+  };
 };

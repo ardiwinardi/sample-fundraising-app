@@ -1,11 +1,28 @@
+import { setSearchBy } from '@/features/campaign/presentation/store/campaign.store';
+import { SyntheticEvent } from 'react';
+import { useDispatch } from 'react-redux';
+
 export default function Search() {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (event: SyntheticEvent) => {
+    event.preventDefault();
+    const target = event.target as typeof event.target & {
+      search: { value: string };
+    };
+    dispatch(setSearchBy(target.search.value));
+  };
+
   return (
     <div className="relative z-10 w-full">
-      <input
-        type="text"
-        placeholder="Search"
-        className="w-full p-3 pl-7 text-sm bg-gray-100 rounded-3xl placeholder:text-primary"
-      />
+      <form onSubmit={handleSubmit}>
+        <input
+          id="search"
+          type="text"
+          placeholder="Search"
+          className="w-full p-3 pl-7 text-sm bg-gray-100 rounded-3xl placeholder:text-primary"
+        />
+      </form>
       <svg
         className="w-9 h-9 absolute top-1 right-8 rotate-90 text-primary"
         fill="none"

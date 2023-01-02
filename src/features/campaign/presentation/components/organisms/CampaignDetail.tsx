@@ -1,4 +1,4 @@
-import { Campaign } from '@/features/campaign/domain/entities/campaign.entity';
+import { Campaign } from '@/features/campaign/domain/campaign.entity';
 import { campaignSlides } from '@/features/home/data/constants/slide.constant';
 import Slide from '@/shared/presentation/components/atoms/Slide';
 import Title from '@/shared/presentation/components/atoms/Title';

@@ -6,14 +6,14 @@ type Props = {
   maxRange: number;
   step?: number;
   prefix?: string;
+  handleChange: (value: number) => void;
+  defaultValue: number;
 };
 
 export default function Range(props: Props) {
   const { step, minRange, maxRange } = props;
-
   const [maxPosition, setMaxPosition] = useState<number>(0);
-
-  const [value, setValue] = useState<number>(maxRange / 2);
+  const [value, setValue] = useState<number>(props.defaultValue);
 
   const getPosition = (value: number) => {
     const priceTo = Math.max(value, minRange);
@@ -23,6 +23,7 @@ export default function Range(props: Props) {
 
   useEffect(() => {
     getPosition(value);
+    props.handleChange(value);
   }, [value]);
 
   return (

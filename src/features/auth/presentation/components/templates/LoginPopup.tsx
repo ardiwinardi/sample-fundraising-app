@@ -4,12 +4,13 @@ import GoogleButton from '@/shared/presentation/components/atoms/GoogleButton';
 import Popup from '@/shared/presentation/components/atoms/Popup';
 import useModal from '@/shared/presentation/hooks/useModal';
 import { useRouter } from 'next/router';
-import { useAuthLoginWithGoogle } from '../../controllers/auth.controller';
+import { useEffect } from 'react';
+import { useLoginWithGoogleMutation } from '../../controllers/auth.controller';
 
 export default function LoginPopup() {
   const { modalStatus, toggleModal: handleClose } = useModal('LOGIN_POPUP');
 
-  const loginController = useAuthLoginWithGoogle();
+  const [loginWithGoogle, result] = useLoginWithGoogleMutation();
   const router = useRouter();
 
   const handleLogin = () => {
@@ -18,9 +19,14 @@ export default function LoginPopup() {
   };
 
   const handleLoginWithGoogle = async () => {
-    await loginController.login();
-    handleClose();
+    loginWithGoogle();
   };
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      handleClose();
+    }
+  }, [result.isSuccess]);
 
   return (
     <Popup

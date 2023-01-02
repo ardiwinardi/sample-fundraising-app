@@ -1,12 +1,18 @@
 import { authService } from '../../data/auth.repository.impl';
-export const useAuthLoginWithGoogle = () => {
-  const login = async () => {
-    try {
-      return await authService.loginWithGoogle();
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
-  return { login };
-};
+import { User } from '@/features/user/domain/user.entity';
+import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const authController = createApi({
+  reducerPath: 'authController',
+  baseQuery: fakeBaseQuery(),
+  endpoints: (builder) => ({
+    loginWithGoogle: builder.mutation<User, void>({
+      queryFn: async () => ({
+        data: await authService.loginWithGoogle(),
+      }),
+    }),
+  }),
+});
+
+export const { useLoginWithGoogleMutation } = authController;

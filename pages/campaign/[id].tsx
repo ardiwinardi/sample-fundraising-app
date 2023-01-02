@@ -7,7 +7,6 @@ import BottomFixed from '@/features/home/presentation/components/molecules/Botto
 import Button from '@/shared/presentation/components/atoms/Button';
 import Navbar from '@/shared/presentation/components/organisms/Navbar';
 import useModal from '@/shared/presentation/hooks/useModal';
-import { toLocalDateString } from '@/shared/presentation/utils/date.util';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
@@ -52,6 +51,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const campaign = await campaignService.getById(id as string);
 
+    console.log(campaign);
+
     return {
       props: {
         data: {
@@ -62,8 +63,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           category: campaign.category ?? '',
           detail: {
             targetAmount: campaign.detail?.targetAmount ?? 0,
-            expiredAt: toLocalDateString(campaign.detail?.expiredAt ?? null),
+            expiredAt: campaign.detail?.expiredAt,
             collectedAmount: campaign.detail?.collectedAmount ?? 0,
+            numberOfDonors: campaign.detail?.numberOfDonors ?? 0,
           },
         },
       },

@@ -10,7 +10,7 @@ export default function StickySearch() {
     <>
       <div
         className={classNames({
-          'flex fixed space-x-3 items-center left-1/2 -translate-x-1/2 -top-6 w-full md:w-6/12 lg:w-4/12 px-6 py-3 bg-primary z-40 shadow-[0px_1px_6px_-2px_#d9d9d9]':
+          'flex fixed space-x-3 items-center left-1/2 -translate-x-1/2 -top-6 w-full md:w-10/12 lg:w-4/12 px-6 py-3 bg-primary z-40 shadow-[0px_1px_6px_-2px_#d9d9d9]':
             scrollPosition > 96,
           hidden: scrollPosition <= 96,
         })}

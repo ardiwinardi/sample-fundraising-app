@@ -7,7 +7,7 @@
         @apply scroll-smooth
     }
     body {
-        @apply font-sans bg-white
+        @apply font-sans
     }          
     button, a {
         @apply active:outline-none
@@ -21,7 +21,7 @@
 }
 
 #__next{
-    @apply bg-secondary h-full;
+    @apply bg-secondary h-full 2xl:h-screen;
 }
 
 /* width */

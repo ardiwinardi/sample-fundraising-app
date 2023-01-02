@@ -1,4 +1,4 @@
-import { Campaign } from '@/features/campaign/domain/entities/campaign.entity';
+import { Campaign } from '@/features/campaign/domain/campaign.entity';
 import Avatar from '@/shared/presentation/components/atoms/Avatar';
 import { numberToCurrency } from '@/shared/presentation/utils/number.util';
 type Props = {

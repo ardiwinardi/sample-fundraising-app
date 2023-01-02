@@ -1,14 +1,21 @@
 import { useGetCampaignListQuery } from '@/features/campaign/presentation/controllers/campaign.controller';
 import { Loading } from '@/shared/presentation/components/atoms/Loading';
 import Title from '@/shared/presentation/components/atoms/Title';
+import { RootState } from '@/shared/presentation/redux/store';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import CampaignCard from '../molecules/CampaignCard';
 import SortingPopup from '../molecules/SortingPopup';
 
 export default function Trending() {
+  const filter = useSelector((state: RootState) => state.campaign.filter);
   const [showSortingPopup, setShowSortingPopup] = useState<boolean>(false);
-  const getListController = useGetCampaignListQuery();
+  const getCampaignsController = useGetCampaignListQuery(filter);
+
+  useEffect(() => {
+    getCampaignsController.refetch();
+  }, [filter]);
 
   return (
     <>
@@ -44,9 +51,9 @@ export default function Trending() {
           </button>
         </Title>
         <div className="flex flex-col space-y-5">
-          {getListController.isLoading && <Loading />}
-          {getListController.data &&
-            getListController.data.map((campaign, index) => (
+          {getCampaignsController.isLoading && <Loading />}
+          {getCampaignsController.data &&
+            getCampaignsController.data.map((campaign, index) => (
               <Link
                 href={`/campaign/${campaign.id}`}
                 key={index}

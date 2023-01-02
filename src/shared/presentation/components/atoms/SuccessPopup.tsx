@@ -1,16 +1,27 @@
-import { BasePopupProps } from '@/shared/interfaces/popup.interface';
 import Popup from '@/shared/presentation/components/atoms/Popup';
+import { useRouter } from 'next/router';
+import useModal from '../../hooks/useModal';
 
-type Props = BasePopupProps & {
+type Props = {
   message: string;
+  redirectPath?: string;
 };
 
 export default function SuccessPopup(props: Props) {
+  const { modalStatus, toggleModal } = useModal('SUCCESS_POPUP');
+  const router = useRouter();
+
+  const handleClose = () => {
+    toggleModal();
+    if (props.redirectPath) {
+      router.push(props.redirectPath);
+    }
+  };
   return (
     <Popup
       id="success"
-      show={props.show}
-      handleClose={() => props.handleClose()}
+      show={modalStatus}
+      handleClose={() => handleClose()}
       closeOnTapOutside={false}
       popupType="dialog"
     >
