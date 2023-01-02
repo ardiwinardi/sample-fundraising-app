@@ -1,7 +1,7 @@
 
 Sample Donation App
 ===========================
-This app demonstrate how I build frontend app using React.js. 
+This app demonstrates how I build a front-end app using React.js. 
 
 ## Features
 -   Home Page
@@ -13,6 +13,7 @@ This app demonstrate how I build frontend app using React.js.
 -   Mobile Responsive
 
 ## Stack
+- React hooks
 - Next.js
 - TypeScript
 - Tailwind CSS
@@ -30,7 +31,7 @@ This app demonstrate how I build frontend app using React.js.
 ## Setup
 1. Clone or [download zip](https://github.com/ardiwinardi/sample-donation-app/archive/master.zip) this repository
 2. Install dependencies :
-   - open terminal, go to app directory
+   - open the terminal, go to the app directory
    - run `$ npm install`
 3. Setup firebase configuration, [see detail](https://www.makeuseof.com/react-app-firebase-connect/) 
 4. Setup .env configuration
@@ -44,17 +45,17 @@ This app demonstrate how I build frontend app using React.js.
 	```bash
 	bun run dev
 	```   
-6. React app should be running on port 3000
+6. React app should run on port 3000
 
 
 ## What's not covered
 - Testing
-- and more..
+- and more...
 
 ## Contribute
 1. fork
 2. patch
-3. pull!
+3. pull
 
 ## Questions
-If you have any question, write [here](https://github.com/ardiwinardi/sample-donation-app/issues).
+If you have any questions, write [here](https://github.com/ardiwinardi/sample-donation-app/issues).
