@@ -4,11 +4,19 @@ import {
   setSortingBy,
 } from '@/features/campaign/presentation/store/campaign.store';
 import { SearchContext } from '@/features/home/presentation/contexts/SearchContext';
-import { SyntheticEvent, useContext, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { SyntheticEvent, useContext, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 export default function Search() {
   const { keyword, setKeyword } = useContext(SearchContext);
+  const { keyword: filterKeyword } = useSelector(
+    (state: RootState) => state.campaign.filter
+  );
+
+  useEffect(() => {
+    setKeyword(filterKeyword);
+  }, [filterKeyword]);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();

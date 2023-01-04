@@ -1,7 +1,7 @@
 import AuthContextProvider from '@/features/auth/presentation/contexts/AuthContext';
 import { CustomPage } from '@/shared/interfaces/page.interface';
 import Layout from '@/shared/presentation/components/templates/Layout';
-import { store } from '@/shared/presentation/redux/store';
+import { setupStore } from '@/shared/presentation/redux/store';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -12,6 +12,8 @@ import '../styles/globals.css';
 type CustomAppProps = AppProps & {
   Component: CustomPage;
 };
+
+const store = setupStore();
 
 export default function App({ Component, pageProps }: CustomAppProps) {
   const DynamicLayout = Component.usePrivateLayout ? PrivateLayout : Layout;

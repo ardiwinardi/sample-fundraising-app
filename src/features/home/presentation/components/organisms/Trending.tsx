@@ -64,6 +64,10 @@ export default function Trending() {
                 </Link>
               </li>
             ))}
+          {getCampaignsController.data &&
+            getCampaignsController.data.length === 0 && (
+              <p className="text-xs">Campaigns is empty</p>
+            )}
         </ul>
       </section>
 

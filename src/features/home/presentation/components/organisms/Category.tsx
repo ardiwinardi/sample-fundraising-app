@@ -1,4 +1,7 @@
-import { setCategory } from '@/features/campaign/presentation/store/campaign.store';
+import {
+  setCategory,
+  setSearchBy,
+} from '@/features/campaign/presentation/store/campaign.store';
 import { categories } from '@/features/home/data/constants/category.constant';
 import Avatar from '@/shared/presentation/components/atoms/Avatar';
 import Title from '@/shared/presentation/components/atoms/Title';
@@ -15,6 +18,7 @@ export default function Category() {
     const newCategory =
       categoryTitle === selectedCategory ? undefined : categoryTitle;
     dispatch(setCategory(newCategory));
+    dispatch(setSearchBy(''));
   };
 
   return (
